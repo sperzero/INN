@@ -3,7 +3,7 @@
  *
  * June 24, 2010 - v1.3.2 - Bug fix in getAgendaItemByDataAttr(). I suck...
  * June 23, 2010 - v1.3.1 - Bug fix in deleteAgendaItemByDataAttr() function, and new reRenderAgendaItems() function!
- * June 22, 2010 - v1.3   - Tooltip support. Additional callbacks, applyAgendaTooltipCallback, agendaDragStartCallback, 
+ * June 22, 2010 - v1.3   - Tooltip sfupport. Additional callbacks, applyAgendaTooltipCallback, agendaDragStartCallback, 
  *						    and agendaDragStopCallback.
  * June 17, 2010 - v1.2   - Drag-and-drop, CSS updates, allDay event option.
  * June 14, 2010 - v1.1   - Few bug fixes, tweaks, and basic VEVENT ical support.
@@ -1798,18 +1798,18 @@
 			var calObj = event.data.cal;
 			
 			if(calObj == null){
-				alert("Drop Error: Calendar object is null.");
+				alert("Error al Soltar: El objeto es nulo.");
 			}			
 		
 			var agendaDiv = ui.draggable;
 			
 			var agendaId = parseInt(agendaDiv.data("agendaId"));
 			if(agendaId == null){
-				alert("Drop Error: Agenda id is null.");
+				alert("Error al Soltar: El id esta vacio");
 			}
 			var agendaItemObj = calObj.getAgendaItemById(agendaId);
 			if(agendaItemObj == null){
-				alert("Drop Error: Agenda item object is null.");
+				alert("Error al Soltar: El item esta vacio");
 			}
 			
 			// The date on the calendar that agenda div was dropped to
@@ -2635,7 +2635,7 @@
 		};
 		
 		this.shoutOut = function(){
-			alert("You have a calendar object!");
+			alert("Usted tiene un objeto en el calendario!");
 		};
 		
 		/**
@@ -2830,19 +2830,19 @@
 		 @ @return number - Index of day within the week.
 		 */
 		this.getWeekIndex = function(dayName){
-			if(dayName.toUpperCase() == "SUN" || dayName.toUpperCase() == "SUNDAY"){
+			if(dayName.toUpperCase() == "DOM" || dayName.toUpperCase() == "DOMINGO"){
 				return 0;
-			}else if(dayName.toUpperCase() == "MON" || dayName.toUpperCase() == "MONDAY"){
+			}else if(dayName.toUpperCase() == "LUN" || dayName.toUpperCase() == "LUNES"){
 				return 1;
-			}else if(dayName.toUpperCase() == "TUE" || dayName.toUpperCase() == "TUESDAY"){
+			}else if(dayName.toUpperCase() == "MAR" || dayName.toUpperCase() == "MARTES"){
 				return 2;
-			}else if(dayName.toUpperCase() == "WED" || dayName.toUpperCase() == "WEDNESDAY"){
+			}else if(dayName.toUpperCase() == "MIE" || dayName.toUpperCase() == "MIERCOLES"){
 				return 3;
-			}else if(dayName.toUpperCase() == "THU" || dayName.toUpperCase() == "THURSDAY"){
+			}else if(dayName.toUpperCase() == "JUE" || dayName.toUpperCase() == "JUEVES"){
 				return 4;
-			}else if(dayName.toUpperCase() == "FRI" || dayName.toUpperCase() == "FRIDAY"){
+			}else if(dayName.toUpperCase() == "VIE" || dayName.toUpperCase() == "VIERNES"){
 				return 5;
-			}else if(dayName.toUpperCase() == "SAT" || dayName.toUpperCase() == "SATURDAY"){
+			}else if(dayName.toUpperCase() == "SAB" || dayName.toUpperCase() == "SABADO"){
 				return 6;
 			}else{
 				return -1
@@ -2851,7 +2851,7 @@
 	
 	};
 	// static properties
-	Calendar.dayNames = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+	Calendar.dayNames = new Array("Don","Lun","Mar","Mie","Jue","Vie","Sab");
 	/**
 	 * Sort function for sorting agenda items by start date.
 	 *
@@ -2935,7 +2935,7 @@
 	 */
 	Calendar.showMoreAgendaModal = function(cal,date,agendaItems){
 		if(cal == null || date == null || agendaItems == null){
-			alert("Can't open dialog. One ore more of Calendar/Date/agendaItems parameters are null.");
+			alert("No se puede abrir el diálogo. Uno o más de los parámetros de los elementos del calendario / fecha / agenda son nulos.");
 		}
 		var modalId = cal.jqyObj.attr("id") + "-more-agenda-modal";
 		
@@ -3087,7 +3087,7 @@
 			dataType: responseDataType,
 			success: function(data) {
 				if(data == null || data == ""){
-					alert("iCal load error: Returned data was null or empty string.\n\nSource, " + iCalUrl);
+					alert("iCal load error: Los datos devueltos era cadena nula o vacía.\n\nSource, " + iCalUrl);
 					return;
 				}
 				icalParser.clear();
@@ -3177,7 +3177,7 @@
 				}	
 			},
 			error: function(request,status,errorThrown) {
-				alert("iCal load error: Failure in requesting " + iCalUrl + ": " + errorThrown);
+				alert("iCal load error: El fracaso en la solicitud " + iCalUrl + ": " + errorThrown);
 			}
 		});		
 	};	
@@ -3733,7 +3733,7 @@
 			if(calId != null && title != null && startDate != null && endDate != null && allDay != null){
 				// make sure start date comes before end date
 				if(DateUtil.secondsDifferenceDirection(startDate,endDate) < 0){
-					alert("Sorry, you can't create an event that ends before it starts");
+					alert("No puede crear un evento antes que inicie");
 					return;
 				}
 				calId = stripNumberSign(calId);
@@ -4091,7 +4091,7 @@
 		this.setAspectRatio = function(calId,ratio){
 			if(calId != null && ratio != null){
 				if(ratio > 1 || ratio <= 0){
-					alert("Ratio is out of range. Ratio must be less than or equal to 1, and greater than 0.");
+					alert("Relación está fuera de rango. Ratio debe ser menor que o igual a 1, y mayor que 0.");
 				}else{
 					calId = stripNumberSign(calId);
 					var calObj = myCalendars.get(calId);
@@ -4153,7 +4153,7 @@
 			freebusys:[]
 		},
 		test: function(){
-			alert("icalParser test is good!");
+			alert("Analizador de prueba iCal es bueno!");
 		},
 		clear: function(){
 			this.ical.version = '';

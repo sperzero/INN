@@ -130,9 +130,9 @@ $(document).ready(function(){
 		var data = agendaItem.data;
 		displayData += "<br><b>" + title+ "</b><br><br>";
 		if(allDay){
-			displayData += "(All day event)<br><br>";
+			displayData += "(Evento de todo el dia)<br><br>";
 		}else{
-			displayData += "<b>Starts:</b> " + startDate + "<br>" + "<b>Ends:</b> " + endDate + "<br><br>";
+			displayData += "<b>Inicia:</b> " + startDate + "<br>" + "<b>Termina:</b> " + endDate + "<br><br>";
 		}
 		for (var propertyName in data) {
 			displayData += "<b>" + propertyName + ":</b> " + data[propertyName] + "<br>"
@@ -222,8 +222,8 @@ $(document).ready(function(){
 		var date = eventObj.data.calDayDate;
 		// Pull agenda item from calendar
 		var agendaItem = jfcalplugin.getAgendaItemById("#mycal",agendaId);		
-		alert("You dropped agenda item " + agendaItem.title + 
-			" onto " + date.toString() + ". Here is where you can make an AJAX call to update your database.");
+		alert("Has movido la actividad " + agendaItem.title + 
+			" hacia " + date.toString() + ". aca puedes usar AJAX para llamar la actulizacion de la BD.");
 	};
 	
 	/**
@@ -327,12 +327,12 @@ $(document).ready(function(){
 		width: 400,
 		modal: true,
 		buttons: {
-			'Add Event': function() {
+			'Agregar': function() {
 
 				var what = jQuery.trim($("#what").val());
 			
 				if(what == ""){
-					alert("Please enter a short event description into the \"what\" field.");
+					alert("Porfavor ingrese una descripcion del evento.");
 				}else{
 				
 					var startDate = $("#startDate").val();
@@ -415,7 +415,7 @@ $(document).ready(function(){
 				}
 				
 			},
-			Cancel: function() {
+			Cancelar: function() {
 				$(this).dialog('close');
 			}
 		},
@@ -506,14 +506,14 @@ $(document).ready(function(){
 		width: 400,
 		modal: true,
 		buttons: {		
-			Cancel: function() {
+			Cancelar: function() {
 				$(this).dialog('close');
 			},
-			'Edit': function() {
-				alert("Make your own edit screen or dialog!");
+			'Editar': function() {
+				alert("Hacer su propia pantalla de edición o de diálogo!");
 			},
-			'Delete': function() {
-				if(confirm("Are you sure you want to delete this agenda item?")){
+			'Borrar': function() {
+				if(confirm("¿esta seguro de borrar esta actividad?")){
 					if(clickAgendaItem != null){
 						jfcalplugin.deleteAgendaItemById("#mycal",clickAgendaItem.agendaId);
 						//jfcalplugin.deleteAgendaItemByDataAttr("#mycal","myNum",42);
@@ -535,12 +535,12 @@ $(document).ready(function(){
 				);				
 				if(allDay){
 					$("#display-event-form").append(
-						"(All day event)<br><br>"				
+						"(Todo el dia)<br><br>"				
 					);				
 				}else{
 					$("#display-event-form").append(
-						"<b>Starts:</b> " + startDate + "<br>" +
-						"<b>Ends:</b> " + endDate + "<br><br>"				
+						"<b>Inicia:</b> " + startDate + "<br>" +
+						"<b>Termina:</b> " + endDate + "<br><br>"				
 					);				
 				}
 				for (var propertyName in data) {
@@ -580,14 +580,14 @@ $(document).ready(function(){
 		<br><br>
 
 		<div id="toolbar" class="ui-widget-header ui-corner-all" style="padding:3px; vertical-align: middle; white-space:nowrap; overflow: hidden;">
-			<button id="BtnPreviousMonth">Previous Month</button>
-			<button id="BtnNextMonth">Next Month</button>
+			<button id="BtnPreviousMonth">Mes Anterior</button>
+			<button id="BtnNextMonth">Siquiente Mes</button>
 			&nbsp;&nbsp;&nbsp;
-			Date: <input type="text" id="dateSelect" size="20"/>
+			Fecha: <input type="text" id="dateSelect" size="20"/>
 			&nbsp;&nbsp;&nbsp;
-			<button id="BtnDeleteAll">Delete All</button>
-			<button id="BtnICalTest">iCal Test</button>
-			<input type="text" id="iCalSource" size="30" value="extra/fifa-world-cup-2010.ics"/>
+			<button id="BtnDeleteAll">Borrar Todo</button>
+	   <!--	<button id="BtnICalTest">iCal Test</button> -->
+	   <!-- <input type="text" id="iCalSource" size="30" value="extra/fifa-world-cup-2010.ics"/> -->
 		</div>
 
 		<br>
@@ -611,21 +611,21 @@ $(document).ready(function(){
 			.ui-dialog .ui-state-error { padding: .3em; }
 			.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		</style>
-		<div id="add-event-form" title="Add New Event">
-			<p class="validateTips">All form fields are required.</p>
+		<div id="add-event-form" title="Nuevo Evento">
+			<p class="validateTips">Todos estos campos son requeridos.</p> 
 			<form>
 			<fieldset>
-				<label for="name">What?</label>
+				<label for="name">Actividad</label>
 				<input type="text" name="what" id="what" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;"/>
 				<table style="width:100%; padding:5px;">
 					<tr>
 						<td>
-							<label>Start Date</label>
+							<label>Fecha Inicial</label>
 							<input type="text" name="startDate" id="startDate" value="" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;"/>				
 						</td>
 						<td>&nbsp;</td>
 						<td>
-							<label>Start Hour</label>
+							<label>Hora</label>
 							<select id="startHour" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="12" SELECTED>12</option>
 								<option value="1">1</option>
@@ -642,7 +642,7 @@ $(document).ready(function(){
 							</select>				
 						<td>
 						<td>
-							<label>Start Minute</label>
+							<label>Minuto</label>
 							<select id="startMin" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="00" SELECTED>00</option>
 								<option value="10">10</option>
@@ -653,7 +653,7 @@ $(document).ready(function(){
 							</select>				
 						<td>
 						<td>
-							<label>Start AM/PM</label>
+							<label>AM/PM</label>
 							<select id="startMeridiem" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="AM" SELECTED>AM</option>
 								<option value="PM">PM</option>
@@ -662,12 +662,12 @@ $(document).ready(function(){
 					</tr>
 					<tr>
 						<td>
-							<label>End Date</label>
+							<label>Fecha Final</label>
 							<input type="text" name="endDate" id="endDate" value="" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;"/>				
 						</td>
 						<td>&nbsp;</td>
 						<td>
-							<label>End Hour</label>
+							<label>Hora</label>
 							<select id="endHour" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="12" SELECTED>12</option>
 								<option value="1">1</option>
@@ -684,7 +684,7 @@ $(document).ready(function(){
 							</select>				
 						<td>
 						<td>
-							<label>End Minute</label>
+							<label>Minuto</label>
 							<select id="endMin" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="00" SELECTED>00</option>
 								<option value="10">10</option>
@@ -695,7 +695,7 @@ $(document).ready(function(){
 							</select>				
 						<td>
 						<td>
-							<label>End AM/PM</label>
+							<label>AM/PM</label>
 							<select id="endMeridiem" class="text ui-widget-content ui-corner-all" style="margin-bottom:12px; width:95%; padding: .4em;">
 								<option value="AM" SELECTED>AM</option>
 								<option value="PM">PM</option>
@@ -706,7 +706,7 @@ $(document).ready(function(){
 				<table>
 					<tr>
 						<td>
-							<label>Background Color</label>
+							<label>Color de Fondo</label>
 						</td>
 						<td>
 							<div id="colorSelectorBackground"><div style="background-color: #333333; width:30px; height:30px; border: 2px solid #000000;"></div></div>
@@ -714,7 +714,7 @@ $(document).ready(function(){
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;</td>
 						<td>
-							<label>Text Color</label>
+							<label>Color de Texto</label>
 						</td>
 						<td>
 							<div id="colorSelectorForeground"><div style="background-color: #ffffff; width:30px; height:30px; border: 2px solid #000000;"></div></div>
@@ -726,7 +726,7 @@ $(document).ready(function(){
 			</form>
 		</div>
 		
-		<div id="display-event-form" title="View Agenda Item">
+		<div id="display-event-form" title="Visor de Actividad">
 			
 		</div>		
 
